@@ -28,27 +28,28 @@ function createWindow() {
 		minWidth: 600,
 		minHeight: 200,
 		transparent: false,
-		frame: true,
+		frame: false,
 		alwaysOnTop: true,
 	});
 	splash.loadFile(__dirname + "/splash.html");
 	splash.center();
-	setTimeout(function () {
+	// setTimeout(function () {
+	// 	splash.close();
+	// 	window.show();
+	// }, 15000);
+	window.on("ready-to-show", () => {
 		splash.close();
 		window.show();
-	}, 15000);
+	});
 	window.webContents.on("did-finish-load", () => {
 		let data = getmac.default();
 		window.webContents.send("sending", data);
-		// localStorage.setItem("macId", data);
 	});
 	window.loadURL(
 		isDev
 			? "http://localhost:3000"
 			: `file://${path.join(__dirname, "../build/index.html")}`
 	);
-
-	// autoUpdater.checkForUpdates();
 	setInterval(() => {
 		autoUpdater.checkForUpdates();
 	}, 20000);
@@ -112,8 +113,23 @@ autoUpdater.on("update-available", (_event, releaseNotes, releaseName) => {
 		message: process.platform === "win32" ? releaseNotes : releaseName,
 		detail: "A new version is being downloaded",
 	};
-	dialog.showMessageBox(dialogOpts, (response) => {});
+	dialog.showMessageBox(dialogOpts, (response) => {
+		console.log(response);
+	});
 });
+autoUpdater.on("error", (error) => {
+	const dialogOpts = {
+		type: "info",
+		buttons: ["OK"],
+		title: "Application Updates",
+		message: process.platform === "win32" ? error : "releaseName",
+		detail: "error",
+	};
+	dialog.showMessageBox(dialogOpts, (response) => {
+		console.log(response);
+	});
+});
+
 autoUpdater.on("update-downloaded", (_event, releaseNotes, releaseName) => {
 	const dialogOpts = {
 		type: "info",

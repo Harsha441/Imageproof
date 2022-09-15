@@ -1,7 +1,7 @@
 {
   "name": "electron",
   "productName":"ImageProof",
-  "version": "0.1.7",
+  "version": "0.1.5",
   "description":"FrameInCam",
   "private": true,
   "main": "public/electron.js",
