@@ -312,10 +312,10 @@ const EventImages = ({ goToUploadImages, goBack }) => {
 						</Button>
 						{selectionAccessBtn && (
 							<Button
-								variant="contained"
+								variant="outlined"
 								endIcon={<SecurityUpdateGoodRoundedIcon />}
 								onClick={() => selectionAccess(eventId)}
-								sx={{ marginTop: "30px" }}
+								sx={{ marginTop: "30px", width: "220px" }}
 							>
 								Access to client
 							</Button>
@@ -333,7 +333,12 @@ const EventImages = ({ goToUploadImages, goBack }) => {
 										label={
 											<ArrowCircleLeftRoundedIcon
 												onClick={goBack}
-												sx={{ cursor: "pointer", color: "#387c8f" }}
+												sx={{
+													cursor: "pointer",
+													color: "#387c8f",
+													marginLeft: "15px",
+													alignSelf: "flex-start",
+												}}
 											/>
 										}
 										value="0"

@@ -58,7 +58,7 @@ const LicenseKey = () => {
 				setLoading(false);
 			}
 			const { data } = await axios.post(
-				"https://beta.imageproof.ai/api/activate-key",
+				`https://beta.imageproof.ai/api/activate-key`,
 				d
 			);
 			console.log(data);
@@ -97,7 +97,7 @@ const LicenseKey = () => {
 		};
 		try {
 			const { data } = await axios.post(
-				"https://beta.imageproof.ai/api/check-key-activation",
+				`https://beta.imageproof.ai/api/check-key-activation`,
 				d
 			);
 			console.log(data);

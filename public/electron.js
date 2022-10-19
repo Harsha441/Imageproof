@@ -27,20 +27,20 @@ function createWindow() {
 		width: 1280,
 		minWidth: 600,
 		minHeight: 200,
-		transparent: false,
+		// transparent: false,
 		frame: false,
 		alwaysOnTop: true,
 	});
 	splash.loadFile(__dirname + "/splash.html");
 	splash.center();
-	// setTimeout(function () {
-	// 	splash.close();
-	// 	window.show();
-	// }, 15000);
-	window.on("ready-to-show", () => {
+	setTimeout(function () {
 		splash.close();
 		window.show();
-	});
+	}, 8000);
+	// window.on("ready-to-show", () => {
+	// 	splash.close();
+	// 	window.show();
+	// });
 	window.webContents.on("did-finish-load", () => {
 		let data = getmac.default();
 		window.webContents.send("sending", data);
@@ -50,53 +50,52 @@ function createWindow() {
 			? "http://localhost:3000"
 			: `file://${path.join(__dirname, "../build/index.html")}`
 	);
-	setInterval(() => {
-		autoUpdater.checkForUpdates();
-	}, 20000);
-}
-// app.on("ready", createWindow);
-app.on("ready", function () {
-	createWindow();
 
-	const template = [
-		{
-			label: "File",
-			submenu: [
-				{
-					label: "Exit",
-				},
-			],
-		},
-		{
-			label: "Edit",
-			submenu: [
-				{ role: "Undo" },
-				{ role: "Redo" },
-				{ role: "Cut" },
-				{ role: "Copy" },
-				{ role: "Paste" },
-				{ role: "SelectAll" },
-			],
-		},
-		{
-			label: "View",
-			submenu: [{ role: "Togglefullscreen" }],
-		},
-		{
-			label: "Help",
-			submenu: [
-				{
-					label: "About ImageProof",
-					click: function () {
-						electron.shell.openExternal("https://imageproof.ai/");
-					},
-				},
-			],
-		},
-	];
-	const menu = Menu.buildFromTemplate(template);
-	Menu.setApplicationMenu(menu);
-});
+	autoUpdater.checkForUpdates();
+}
+app.on("ready", createWindow);
+// app.on("ready", function () {
+// 	createWindow();
+
+// 	const template = [
+// 		{
+// 			label: "File",
+// 			submenu: [
+// 				{
+// 					label: "Exit",
+// 				},
+// 			],
+// 		},
+// 		{
+// 			label: "Edit",
+// 			submenu: [
+// 				{ role: "Undo" },
+// 				{ role: "Redo" },
+// 				{ role: "Cut" },
+// 				{ role: "Copy" },
+// 				{ role: "Paste" },
+// 				{ role: "SelectAll" },
+// 			],
+// 		},
+// 		{
+// 			label: "View",
+// 			submenu: [{ role: "Togglefullscreen" }],
+// 		},
+// 		{
+// 			label: "Help",
+// 			submenu: [
+// 				{
+// 					label: "About ImageProof",
+// 					click: function () {
+// 						electron.shell.openExternal("https://imageproof.ai/");
+// 					},
+// 				},
+// 			],
+// 		},
+// 	];
+// 	const menu = Menu.buildFromTemplate(template);
+// 	Menu.setApplicationMenu(menu);
+// });
 app.on("window-all-closed", () => {
 	if (process.platform === "darwin") {
 		app.quit();

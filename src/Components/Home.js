@@ -221,6 +221,8 @@ const Home = ({ handleOpen }) => {
 								// width: "500px",
 								borderRadius: "10px",
 								padding: "20px",
+								height: "300px",
+								width: "550px",
 							}}
 						>
 							<Typography variant="p" sx={{ fontWeight: "bold" }}>
@@ -243,7 +245,9 @@ const Home = ({ handleOpen }) => {
 										</Typography>
 									</Box>
 
-									<Typography variant="p">{packageName}</Typography>
+									<Typography variant="p">
+										{packageName.toUpperCase()}
+									</Typography>
 								</Stack>
 
 								<Stack
@@ -307,8 +311,8 @@ const Home = ({ handleOpen }) => {
 						<Paper
 							elevation={10}
 							sx={{
-								// height: "300px",
-								// width: "600px",
+								height: "300px",
+								width: "600px",
 								borderRadius: "10px",
 								padding: "20px",
 							}}

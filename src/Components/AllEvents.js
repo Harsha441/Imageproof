@@ -91,7 +91,7 @@ const AllEvents = ({ allEvents, addEvent, eventImageShow, leftIcon }) => {
 					})}
 				</Box>
 				<Box>
-					<Paper elevation={3} sx={{ padding: "30px" }}>
+					<Paper elevation={0} sx={{ padding: "30px" }}>
 						<Typography variant="h6">Client Details</Typography>
 						<Stack direction="row" mt={3}>
 							<AccountCircleRoundedIcon />

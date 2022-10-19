@@ -60,6 +60,7 @@ const Login = () => {
 			setLoading(false);
 		} else {
 			try {
+				console.log(process.env.DOMAIN_NAME);
 				const { data } = await axios.post(
 					`https://beta.imageproof.ai/api/login`,
 					d

@@ -266,6 +266,12 @@ export const ProjectsDashboard = () => {
 		// setClientEventShow(true);
 	};
 
+	const goBackToImages = () => {
+		console.log("clicked");
+		setShowUploadedImages(false);
+		setEventImagesShow(true);
+	};
+
 	//Create Event
 	const createEvent = async (e) => {
 		e.preventDefault();
@@ -341,7 +347,8 @@ export const ProjectsDashboard = () => {
 								button: "OK!",
 								icon: "success",
 							});
-							navigate("/upload-photos");
+							setShowUploadedImages(true);
+							setEventImagesShow(true);
 							let event = JSON.stringify(data.event);
 							localStorage.setItem("event", event);
 							log.info(`Event Created: ${event}`);
@@ -409,7 +416,10 @@ export const ProjectsDashboard = () => {
 						</Box>
 					)}
 					<Box minWidth={"70%"}>
-						<Paper elevation={5} sx={{ padding: "20px", height: "85vh" }}>
+						<Paper
+							elevation={5}
+							sx={{ padding: "20px", height: "85vh", overflow: "auto" }}
+						>
 							{createProjectShow && (
 								<CreateProject
 									createProject={createProject}
@@ -451,7 +461,7 @@ export const ProjectsDashboard = () => {
 			{eventImagesShow && !showUploadImages && (
 				<EventImages goToUploadImages={goToUploadImages} goBack={goBack} />
 			)}
-			{showUploadImages && <UploadImages />}
+			{showUploadImages && <UploadImages goBackToImages={goBackToImages} />}
 		</Box>
 	);
 };

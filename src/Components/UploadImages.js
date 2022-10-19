@@ -9,6 +9,7 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
+// import IconButton from "@mui/material/IconButton";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
@@ -19,6 +20,9 @@ import PhotoAlbumRoundedIcon from "@mui/icons-material/PhotoAlbumRounded";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import UploadRoundedIcon from "@mui/icons-material/UploadRounded";
 import CloudUploadRoundedIcon from "@mui/icons-material/CloudUploadRounded";
+// import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+
 import LinearProgress from "@mui/material/LinearProgress";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -31,7 +35,7 @@ const uploadimg = log.scope("Upload Image");
 
 const shell = window.require("electron").shell;
 
-const UploadImages = () => {
+const UploadImages = ({ goBackToImages }) => {
 	const [selectedImages, setSelectedImages] = useState([]);
 	const [showImages, setShowImages] = useState([]);
 	const [apiImages, setApiImages] = useState([]);
@@ -144,20 +148,20 @@ const UploadImages = () => {
 				let l = false;
 				let error = 0;
 				for (const disk of disks) {
-					// if (disk.mounted == "C:" && disk.available <= 30 * 1073741824) {
-					diskArray.push(disk);
-					l = true;
-					// }
+					if (disk.mounted !== "C:" && disk.available <= 30 * 1073741824) {
+						diskArray.push(disk);
+						l = true;
+					}
 				}
-				// if (!l) {
-				// 	console.log("first");
-				// 	// Swal.fire({
-				// 	// 	title: "Warning",
-				// 	// 	text: "Minimum 30GB required in any local drive",
-				// 	// 	icon: "warning",
-				// 	// 	button: "OK",
-				// 	// });
-				// }
+				if (!l) {
+					console.log("first");
+					Swal.fire({
+						title: "Warning",
+						text: "Minimum 30GB required in any local drive",
+						icon: "warning",
+						button: "OK",
+					});
+				}
 				setDiskInfo(diskArray);
 				setShowDisks(true);
 			})
@@ -258,6 +262,7 @@ const UploadImages = () => {
 				icon: "success",
 				button: "OK",
 			});
+			goBackToImages();
 			setLoading(false);
 			setProgress(0);
 			setSelectedImages([]);
@@ -389,7 +394,18 @@ const UploadImages = () => {
 				<Paper elevation={5} sx={{ height: "85vh", overflowX: "scroll" }}>
 					<Box sx={{ padding: "20px" }} mb={3}>
 						<form onSubmit={checkDiskSpace}>
-							{/* <ArrowBackRoundedIcon /> */}
+							<ArrowCircleLeftRoundedIcon
+								onClick={goBackToImages}
+								sx={{
+									cursor: "pointer",
+									color: "#387c8f",
+									fontSize: "30px",
+									marginBottom: "20px",
+								}}
+							/>
+							{/* <IconButton color="primary" aria-label="add to shopping cart">
+								<AddShoppingCartIcon />
+							</IconButton> */}
 							<Box
 								sx={{
 									display: "flex",
